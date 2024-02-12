@@ -1,0 +1,57 @@
+version: "3.8"
+
+services:
+#  keycloak:
+    #    image: quay.io/keycloak/keycloak:23.0.5
+#    build:
+#      context: .
+#      dockerfile: Dockerfile    #mension file Dockerfile
+#    container_name: keycloakauth
+#    environment:
+#      #Admin Credentials
+#      KEYCLOAK_ADMIN: admin
+#      KEYCLOAK_ADMIN_PASSWORD: admin
+#      KC_DATABASE: postgres
+#      KC_STORAGE: jpa
+#      KC_DB_URL: jdbc:postgresql://pg/nest_blog #pg is isolad then we use services pg -it use keycloak is dns use for communacate
+#      KC_DB_USERNAME: sereypanha
+#      KC_DB_PASSWORD: sereypanha@14
+#      KC_HOSTNAME_DEBUG: false
+#      KC_HOSTNAME_STRICT: false
+#      KC_HOSTNAME_STRICT_HTTPS: false
+#      KC_HTTP_ENABLED: true
+#    #      KC_HOSTNAME: http://localhost:8080
+#    #      KC_PROXY: edge
+#    #      KC_HOSTNAME_ADMIN: http://localhost:8080
+#    command: start --optimized
+#    ports:
+#      - 8080:8080
+#    #      - 8443:8443
+#    networks:
+#      - default
+#    volumes:
+#      - keycloak-data:/opt/keycloak/data
+#    depends_on:
+#      - pg
+  pg:
+    image: postgres
+    container_name: pgauth
+    environment:
+      POSTGRES_DB: nest_blog
+      POSTGRES_USER: sereypanha
+      POSTGRES_PASSWORD: sereypanha@14
+    ports:
+      - 5434:5432
+    networks:
+      - default
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+networks:
+  default:
+    driver: bridge
+volumes:
+  pgdata:
+    driver: local
+#  keycloak-data:
+#    driver: local
